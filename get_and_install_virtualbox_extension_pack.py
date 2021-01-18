@@ -37,9 +37,9 @@ def get_virtualbox_version():
 
 def download_pack():
     show_link = True
-    version = get_virtualbox_version()[1:]
-    print(version)
+    version = get_virtualbox_version()
     if version:
+        version = version[1:]
         download_folder = os.path.expanduser("~/Downloads")
         os.makedirs(download_folder,exist_ok=True)
         pack_name       = "Oracle_VM_VirtualBox_Extension_Pack-{}.vbox-extpack".format(version)
