@@ -13,7 +13,7 @@ import urllib
 
 # Change Here
 ########################################################################
-web                  = "https://tuxxlinux.blogspot.com"
+web                  = "https://arfedora.blogspot.com"
 default_max_results  = 30
 agent                = "Mozilla/5.0"
 telegram_token       = ""
