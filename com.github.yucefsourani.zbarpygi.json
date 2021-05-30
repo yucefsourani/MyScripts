@@ -1,0 +1,79 @@
+{
+    "app-id" : "com.github.yucefsourani.zbargtk3_0",
+    "runtime" : "org.gnome.Sdk",
+    "runtime-version" : "40",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "zbargtk3_0.py",
+    "finish-args" : [
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--filesystem=home",
+        "--device=all",
+        "--socket=pulseaudio",
+        "--socket=system-bus",
+        "--socket=session-bus",
+        "--filesystem=xdg-run/dconf",
+        "--filesystem=~/.config/dconf:ro",
+        "--talk-name=ca.desrt.dconf",
+        "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
+    ],
+    "cleanup" : [
+        "/include",
+        "/lib/pkgconfig",
+        "/man",
+        "/share/doc",
+        "/share/gtk-doc",
+        "/share/man",
+        "/share/pkgconfig",
+        "*.la",
+        "*.a"
+    ],
+    "modules" : [
+        {
+            "name" : "ImageMagick",
+            "sources" : [
+                {
+                    "type"   : "archive",
+                    "url"    : "https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.0.11-6.tar.gz",
+                    "sha256" : "8adc1605784653b078572b825e8cd1d3d54f8a1b4ba86b32ca253c038f7e4c37"
+                }
+            ]
+        },
+        {
+            "name" : "zbar",
+            "buildsystem" : "simple",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/mchehab/zbar"
+                }
+            ],
+            "build-commands" : [
+                "autoreconf -vfi",
+                "./configure --with-gtk=gtk3 --with-gir=yes --with-python=python3 --prefix=/",
+                "make",
+                "make install  prefix=/ DESTDIR=/app INSTALL='install -p'"
+            ]
+        },
+        {
+            "name" : "zbarpygi",
+            "builddir" : true,
+            "buildsystem" : "simple",
+            "sources" : [
+                {
+                    "type" : "dir",
+                    "url" : "file:///home/yuceff28/Projects/zbargtk3_0"
+                }
+            ],
+            "build-commands" : [
+                "mkdir -p /app/bin",
+                "cp zbargtk3_0.py /app/bin"
+            ]
+        }
+    ],
+    "build-options" : {
+        "env" : {        }
+    }
+}
