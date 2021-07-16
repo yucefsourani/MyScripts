@@ -34,6 +34,7 @@ for repo_location in repos_locations:
     if os.path.isdir(repo_location):
         for repo_file_name in os.listdir(repo_location):
             if repo_file_name.endswith(".repo"):
+                modified  = False
                 repo_file = os.path.join(repo_location,repo_file_name)
                 config    = configparser.ConfigParser()
                 try:
@@ -42,8 +43,10 @@ for repo_location in repos_locations:
                         if config.has_option(session_name,"failovermethod"):
                             session = config[session_name]
                             del session["failovermethod"]
-                    with open(repo_file, 'w') as configfile:
-                        config.write(configfile)
+                            modified = True
+                    if modified:
+                        with open(repo_file, 'w') as configfile:
+                            config.write(configfile)
                 except Exception as e:
                     print(e)
 
