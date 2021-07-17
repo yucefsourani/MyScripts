@@ -39,10 +39,10 @@ for repo_location in repos_locations:
                 config    = configparser.ConfigParser()
                 try:
                     config.read(repo_file)
-                    for session_name in config.sections():
-                        if config.has_option(session_name,"failovermethod"):
-                            session = config[session_name]
-                            del session["failovermethod"]
+                    for section_name in config.sections():
+                        if config.has_option(section_name,"failovermethod"):
+                            section = config[section_name]
+                            del section["failovermethod"]
                             modified = True
                     if modified:
                         with open(repo_file, 'w') as configfile:
